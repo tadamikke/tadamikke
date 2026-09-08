@@ -3,179 +3,260 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>タダミッケ v1.0</title>
+<title>タダミッケ | Project AURORA v1.1</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Noto Sans JP',sans-serif;
 }
 
 body{
-  background:#f3f4f6;
-  color:#222;
+background:#F3F4F6;
+color:#1F2937;
 }
 
 header{
-  background:#16A34A;
-  color:#fff;
-  padding:22px;
-  border-radius:0 0 24px 24px;
+background:linear-gradient(135deg,#16A34A,#22C55E);
+padding:24px 20px 32px;
+border-radius:0 0 28px 28px;
+color:white;
+box-shadow:0 6px 18px rgba(34,197,94,.25);
 }
 
 .logo{
-  font-size:30px;
-  font-weight:700;
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:8px;
 }
 
-.sub{
-  opacity:.9;
-  margin-top:6px;
+.logo-icon{
+width:52px;
+height:52px;
+border-radius:16px;
+background:rgba(255,255,255,.15);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+backdrop-filter:blur(8px);
 }
 
-.search{
-  margin-top:18px;
+.logo h1{
+font-size:28px;
+font-weight:700;
 }
 
-.search input{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  font-size:16px;
-  outline:none;
+.subtitle{
+font-size:14px;
+opacity:.95;
+margin-bottom:20px;
+}
+
+.search-box{
+background:white;
+border-radius:16px;
+padding:12px 16px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.search-box input{
+border:none;
+outline:none;
+width:100%;
+font-size:15px;
 }
 
 .container{
-  padding:18px;
-  max-width:700px;
-  margin:auto;
+max-width:760px;
+margin:auto;
+padding:18px;
 }
 
 .card{
-  background:#fff;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:18px;
-  box-shadow:0 3px 10px rgba(0,0,0,.06);
+background:white;
+border-radius:22px;
+padding:18px;
+margin-bottom:18px;
+box-shadow:0 4px 14px rgba(0,0,0,.06);
 }
 
-h2{
-  font-size:20px;
-  margin-bottom:14px;
+.card-title{
+font-size:20px;
+font-weight:700;
+margin-bottom:14px;
+display:flex;
+align-items:center;
+gap:8px;
 }
 
-.map{
-  background:#E5F9EC;
-  border:2px dashed #16A34A;
-  border-radius:16px;
-  padding:30px 10px;
-  text-align:center;
+.map-wrap{
+background:#ECFDF5;
+border:2px solid #BBF7D0;
+border-radius:18px;
+padding:18px;
 }
 
-.map-icon{
-  font-size:72px;
+.japan-map{
+width:100%;
+height:auto;
 }
 
-.map-text{
-  margin-top:8px;
-  color:#166534;
-  font-weight:600;
+.region{
+fill:#BBF7D0;
+stroke:#15803D;
+stroke-width:1.5;
+cursor:pointer;
+transition:.2s;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+.region:hover{
+fill:#4ADE80;
 }
 
-button{
-  border:none;
-  padding:14px;
-  border-radius:12px;
-  background:#F3F4F6;
-  font-weight:700;
-  font-size:15px;
-  cursor:pointer;
+.region.active{
+fill:#16A34A;
 }
 
-button:active{
-  transform:scale(.98);
+.region-text{
+font-size:7px;
+font-weight:700;
+pointer-events:none;
+fill:#166534;
+text-anchor:middle;
 }
 
-button.active{
-  background:#16A34A;
-  color:#fff;
+.region-text.active{
+fill:white;
 }
 
-.prefs{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:14px;
+.pref-list{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:16px;
 }
 
-.pref{
-  background:#DCFCE7;
-  color:#166534;
-  padding:10px 14px;
-  border-radius:999px;
-  font-weight:700;
-  cursor:pointer;
+.pref-chip{
+background:#DCFCE7;
+color:#166534;
+padding:10px 14px;
+border-radius:999px;
+font-size:13px;
+font-weight:700;
+cursor:pointer;
+transition:.2s;
 }
 
-.pref:hover{
-  background:#BBF7D0;
+.pref-chip:hover{
+background:#BBF7D0;
+transform:translateY(-2px);
 }
 
-.result{
-  margin-top:18px;
+.category-scroll{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding-bottom:6px;
 }
 
-.service{
-  background:#fff;
-  border-radius:16px;
-  padding:16px;
-  margin-bottom:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
+.category-scroll::-webkit-scrollbar{
+display:none;
+}
+
+.category{
+white-space:nowrap;
+padding:10px 16px;
+border-radius:999px;
+background:#F3F4F6;
+font-weight:700;
+font-size:13px;
+cursor:pointer;
+}
+
+.category.active{
+background:#16A34A;
+color:white;
+}
+
+.result-title{
+font-size:18px;
+font-weight:700;
+margin-bottom:14px;
+}
+
+.service-card{
+border:1px solid #E5E7EB;
+border-radius:18px;
+padding:16px;
+margin-bottom:14px;
+transition:.2s;
+}
+
+.service-card:hover{
+transform:translateY(-3px);
+box-shadow:0 8px 18px rgba(0,0,0,.08);
+}
+
+.tag-row{
+display:flex;
+gap:8px;
+margin-bottom:10px;
+flex-wrap:wrap;
+}
+
+.tag{
+padding:5px 10px;
+border-radius:999px;
+font-size:11px;
+font-weight:700;
+}
+
+.tag.green{
+background:#DCFCE7;
+color:#166534;
+}
+
+.tag.blue{
+background:#DBEAFE;
+color:#1D4ED8;
 }
 
 .service-title{
-  font-size:18px;
-  font-weight:700;
+font-size:18px;
+font-weight:700;
+margin-bottom:8px;
 }
 
-.service-area{
-  color:#16A34A;
-  font-size:14px;
-  margin-top:5px;
-}
-
-.service-description{
-  margin-top:8px;
-  line-height:1.6;
-  color:#555;
+.service-desc{
+font-size:14px;
+line-height:1.7;
+color:#4B5563;
 }
 
 .empty{
-  text-align:center;
-  color:#777;
-  padding:20px 5px;
-}
-
-.loading{
-  text-align:center;
-  color:#666;
-  padding:20px;
+text-align:center;
+padding:32px 12px;
+color:#6B7280;
 }
 
 footer{
-  text-align:center;
-  color:#6b7280;
-  padding:30px 10px;
-  font-size:13px;
+text-align:center;
+padding:26px;
+font-size:12px;
+color:#9CA3AF;
+}
+
+@media(max-width:480px){
+.logo h1{font-size:24px;}
+.card{padding:16px;}
 }
 </style>
 </head>
@@ -183,456 +264,449 @@ footer{
 <body>
 
 <header>
+<div class="logo">
+<div class="logo-icon">🎁</div>
+<div>
+<h1>タダミッケ</h1>
+<div class="subtitle">全国の無料サービス検索</div>
+</div>
+</div>
 
-  <div class="logo">🎁 タダミッケ</div>
-
-  <div class="sub">
-    全国の完全無料サービス検索
-  </div>
-
-  <div class="search">
-    <input
-      id="searchInput"
-      type="search"
-      placeholder="都道府県・サービス名を検索"
-    >
-  </div>
-
+<div class="search-box">
+<span>🔍</span>
+<input id="searchInput" placeholder="IKEA・離乳食・工場見学">
+</div>
 </header>
-
 
 <div class="container">
 
-  <!-- 地図 -->
-  <div class="card">
+<div class="card">
+<div class="card-title">🗾 地図から探す</div>
+<div class="map-wrap">
+<svg class="japan-map" viewBox="0 0 320 190">
+<rect id="北海道" class="region" x="248" y="8" width="48" height="24" rx="6"/>
+<text id="txt北海道" class="region-text" x="272" y="23">北海道</text>
+<rect id="東北" class="region" x="240" y="42" width="34" height="42" rx="6"/>
+<text id="txt東北" class="region-text" x="257" y="64">東北</text>
+<rect id="関東" class="region" x="236" y="92" width="38" height="24" rx="6"/>
+<text id="txt関東" class="region-text" x="255" y="107">関東</text>
+<rect id="中部" class="region" x="184" y="76" width="44" height="30" rx="6"/>
+<text id="txt中部" class="region-text" x="206" y="94">中部</text>
+<rect id="近畿" class="region active" x="136" y="96" width="36" height="24" rx="6"/>
+<text id="txt近畿" class="region-text active" x="154" y="111">近畿</text>
+<rect id="中国" class="region" x="88" y="88" width="42" height="22" rx="6"/>
+<text id="txt中国" class="region-text" x="109" y="102">中国</text>
+<rect id="四国" class="region" x="120" y="128" width="30" height="16" rx="6"/>
+<text id="txt四国" class="region-text" x="135" y="139">四国</text>
+<rect id="九州" class="region" x="38" y="84" width="34" height="38" rx="6"/>
+<text id="txt九州" class="region-text" x="55" y="103">九州</text>
+</svg>
+</div>
+<div class="pref-list" id="prefList"></div>
+</div>
+<!-- カテゴリ -->
+<div class="card">
 
-    <h2>🗾 地図から探す</h2>
+<div class="card-title">
+🏷️ カテゴリ
+</div>
 
-    <div class="map">
+<div class="category-scroll" id="categoryList">
 
-      <div class="map-icon">🇯🇵</div>
+<div class="category active" data-category="すべて">
+すべて
+</div>
 
-      <p class="map-text">
-        v1.0では地方・都道府県から検索できます
-      </p>
+<div class="category" data-category="子育て">
+子育て
+</div>
 
-    </div>
+<div class="category" data-category="工場見学">
+工場見学
+</div>
 
-  </div>
+<div class="category" data-category="遊び場">
+遊び場
+</div>
 
+<div class="category" data-category="動物">
+動物
+</div>
 
-  <!-- 地方 -->
-  <div class="card">
+<div class="category" data-category="乗り物">
+乗り物
+</div>
 
-    <h2>地方を選択</h2>
+</div>
+</div>
 
-    <div id="regions" class="grid"></div>
+<!-- 検索結果 -->
+<div class="card">
 
-    <div id="prefs" class="prefs"></div>
+<div class="result-title">
+🎁 無料サービス
+</div>
 
-  </div>
+<div id="results">
 
-
-  <!-- 検索結果 -->
-  <div class="card result">
-
-    <h2>🔎 検索結果</h2>
-
-    <div id="results">
-
-      <div class="empty">
-        地方または都道府県を選択してください
-      </div>
-
-    </div>
-
-  </div>
+<div class="empty">
+都道府県を選択すると表示されます
+</div>
 
 </div>
 
+</div>
+
+</div>
 
 <footer>
-  © 2026 タダミッケ
+Project AURORA v1.1 © 2026 タダミッケ
 </footer>
-
 
 <script>
 
-/* =========================================
-   Supabase設定
-========================================= */
+/* ========= Supabase ========= */
 
 const SUPABASE_URL =
-  "https://wobkdymgdskooprhjayf.supabase.co";
+"https://wobkdymgdskooprhjayf.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_BdV7sQh_wPwFgEblOD1jCA_KvVBM2bv";
+"ここにPublishable Key";
 
 
-/* =========================================
-   地方・都道府県データ
-========================================= */
+/* ========= 地方データ ========= */
 
-const data = {
+const regions = {
 
-  "北海道":[
-    "北海道"
-  ],
+"北海道":[
+"北海道"
+],
 
-  "東北":[
-    "青森","岩手","宮城","秋田","山形","福島"
-  ],
+"東北":[
+"青森県","岩手県","宮城県","秋田県","山形県","福島県"
+],
 
-  "関東":[
-    "東京","神奈川","千葉","埼玉","茨城","栃木","群馬"
-  ],
+"関東":[
+"東京都","神奈川県","千葉県","埼玉県","茨城県","栃木県","群馬県"
+],
 
-  "中部":[
-    "愛知","静岡","岐阜","長野","新潟",
-    "富山","石川","福井","山梨"
-  ],
+"中部":[
+"愛知県","静岡県","岐阜県","長野県",
+"新潟県","富山県","石川県","福井県","山梨県"
+],
 
-  "近畿":[
-    "大阪","京都","兵庫","奈良","滋賀","和歌山","三重"
-  ],
+"近畿":[
+"大阪府","京都府","兵庫県","奈良県",
+"滋賀県","和歌山県","三重県"
+],
 
-  "中国":[
-    "岡山","広島","鳥取","島根","山口"
-  ],
+"中国":[
+"岡山県","広島県","鳥取県","島根県","山口県"
+],
 
-  "四国":[
-    "徳島","香川","愛媛","高知"
-  ],
+"四国":[
+"徳島県","香川県","愛媛県","高知県"
+],
 
-  "九州":[
-    "福岡","佐賀","長崎","熊本",
-    "大分","宮崎","鹿児島","沖縄"
-  ]
+"九州":[
+"福岡県","佐賀県","長崎県","熊本県",
+"大分県","宮崎県","鹿児島県","沖縄県"
+]
 
 };
 
 
-/* =========================================
-   HTML要素
-========================================= */
+/* ========= 状態 ========= */
 
-const regions =
-  document.getElementById("regions");
+let selectedPrefecture = "大阪府";
+let selectedCategory = "すべて";
+let keyword = "";
 
-const prefs =
-  document.getElementById("prefs");
+
+/* ========= DOM ========= */
+
+const prefList =
+document.getElementById("prefList");
 
 const results =
-  document.getElementById("results");
+document.getElementById("results");
 
 const searchInput =
-  document.getElementById("searchInput");
+document.getElementById("searchInput");
 
 
-/* =========================================
-   地方表示
-========================================= */
+/* ========= 地方切替 ========= */
 
-function showRegion(region){
+function selectRegion(region){
 
-  prefs.innerHTML = "";
+document
+.querySelectorAll(".region")
+.forEach(el=>el.classList.remove("active"));
 
-  document
-    .querySelectorAll("#regions button")
-    .forEach(button => {
+document
+.querySelectorAll(".region-text")
+.forEach(el=>el.classList.remove("active"));
 
-      button.classList.toggle(
-        "active",
-        button.dataset.region === region
-      );
+document
+.getElementById(region)
+.classList.add("active");
 
-    });
+document
+.getElementById("txt"+region)
+.classList.add("active");
 
-
-  data[region].forEach(prefecture => {
-
-    const button =
-      document.createElement("div");
-
-    button.className = "pref";
-
-    button.textContent = prefecture;
-
-    button.onclick = () => {
-
-      searchServices(prefecture);
-
-    };
-
-    prefs.appendChild(button);
-
-  });
+renderPrefectures(region);
 
 }
 
 
-/* =========================================
-   地方ボタン作成
-========================================= */
+/* ========= 都道府県表示 ========= */
 
-Object.keys(data).forEach(region => {
+function renderPrefectures(region){
 
-  const button =
-    document.createElement("button");
+prefList.innerHTML="";
 
-  button.dataset.region = region;
+regions[region].forEach(pref=>{
 
-  button.textContent = region;
+const chip =
+document.createElement("div");
 
-  button.onclick = () => {
+chip.className="pref-chip";
 
-    showRegion(region);
+chip.textContent=pref;
 
-  };
+chip.onclick=()=>{
 
-  regions.appendChild(button);
+selectedPrefecture=pref;
+
+loadServices();
+
+};
+
+prefList.appendChild(chip);
+
+});
+
+selectedPrefecture=regions[region][0];
+
+loadServices();
+
+}
+
+
+/* ========= 地図クリック ========= */
+
+Object.keys(regions).forEach(region=>{
+
+document
+.getElementById(region)
+.addEventListener("click",()=>{
+
+selectRegion(region);
+
+});
 
 });
 
 
-/* =========================================
-   Supabaseからサービス検索
-========================================= */
+/* ========= 検索 ========= */
 
-async function searchServices(keyword){
+searchInput.addEventListener("input",e=>{
 
-  results.innerHTML =
-    '<div class="loading">🔎 検索中...</div>';
+keyword=e.target.value.trim();
 
-  try{
+loadServices();
 
-    const prefectureMap = {
-      "北海道":"北海道",
-      "青森":"青森県",
-      "岩手":"岩手県",
-      "宮城":"宮城県",
-      "秋田":"秋田県",
-      "山形":"山形県",
-      "福島":"福島県",
-      "東京":"東京都",
-      "神奈川":"神奈川県",
-      "千葉":"千葉県",
-      "埼玉":"埼玉県",
-      "茨城":"茨城県",
-      "栃木":"栃木県",
-      "群馬":"群馬県",
-      "愛知":"愛知県",
-      "静岡":"静岡県",
-      "岐阜":"岐阜県",
-      "長野":"長野県",
-      "新潟":"新潟県",
-      "富山":"富山県",
-      "石川":"石川県",
-      "福井":"福井県",
-      "山梨":"山梨県",
-      "大阪":"大阪府",
-      "京都":"京都府",
-      "兵庫":"兵庫県",
-      "奈良":"奈良県",
-      "滋賀":"滋賀県",
-      "和歌山":"和歌山県",
-      "三重":"三重県",
-      "岡山":"岡山県",
-      "広島":"広島県",
-      "鳥取":"鳥取県",
-      "島根":"島根県",
-      "山口":"山口県",
-      "徳島":"徳島県",
-      "香川":"香川県",
-      "愛媛":"愛媛県",
-      "高知":"高知県",
-      "福岡":"福岡県",
-      "佐賀":"佐賀県",
-      "長崎":"長崎県",
-      "熊本":"熊本県",
-      "大分":"大分県",
-      "宮崎":"宮崎県",
-      "鹿児島":"鹿児島県",
-      "沖縄":"沖縄県"
-    };
+});
 
-    const prefecture =
-      prefectureMap[keyword] || keyword;
 
-    const url =
-      `${SUPABASE_URL}/rest/v1/services?select=*&prefecture=eq.${encodeURIComponent(prefecture)}`;
+/* ========= カテゴリ ========= */
 
-    console.log("検索URL:", url);
+document
+.querySelectorAll(".category")
+.forEach(btn=>{
 
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": `Bearer ${SUPABASE_KEY}`
-      }
-    });
+btn.addEventListener("click",()=>{
 
-    const text = await response.text();
+document
+.querySelectorAll(".category")
+.forEach(b=>b.classList.remove("active"));
 
-    console.log("Supabaseレスポンス:", text);
+btn.classList.add("active");
 
-    if(!response.ok){
-      throw new Error(
-        `HTTP ${response.status} ${text}`
-      );
-    }
+selectedCategory =
+btn.dataset.category;
 
-    const services = JSON.parse(text);
+loadServices();
 
-    displayResults(services, prefecture);
+});
 
-  }catch(error){
+});
 
-    console.error("Supabaseエラー:", error);
 
-    results.innerHTML = `
-      <div class="empty">
-        <strong>データを取得できませんでした</strong>
-        <br><br>
-        ${escapeHtml(error.message)}
-      </div>
-    `;
-  }
+/* ========= Supabase取得 ========= */
+
+async function loadServices(){
+
+results.innerHTML=`
+<div class="empty">
+読み込み中...
+</div>
+`;
+
+try{
+
+const response =
+await fetch(
+
+`${SUPABASE_URL}/rest/v1/services?select=*`,
+
+{
+headers:{
+apikey:SUPABASE_KEY,
+Authorization:`Bearer ${SUPABASE_KEY}`
+}
 }
 
-/* =========================================
-   検索結果表示
-========================================= */
-
-function displayResults(services,keyword){
-
-  results.innerHTML = "";
-
-
-  if(services.length === 0){
-
-    results.innerHTML = `
-      <div class="empty">
-        「${keyword}」の無料サービスは
-        まだ登録されていません。
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  services.forEach(service => {
-
-    const card =
-      document.createElement("div");
-
-    card.className = "service";
-
-
-    const title =
-      service.name ||
-      service.title ||
-      "名称未設定";
-
-
-    const area =
-      service.prefecture ||
-      service.area ||
-      "";
-
-
-    const description =
-      service.description ||
-      service.detail ||
-      "";
-
-
-    card.innerHTML = `
-
-      <div class="service-title">
-        🎁 ${escapeHtml(title)}
-      </div>
-
-      ${
-        area
-        ? `<div class="service-area">
-             📍 ${escapeHtml(area)}
-           </div>`
-        : ""
-      }
-
-      ${
-        description
-        ? `<div class="service-description">
-             ${escapeHtml(description)}
-           </div>`
-        : ""
-      }
-
-    `;
-
-
-    results.appendChild(card);
-
-  });
-
-}
-
-
-/* =========================================
-   全文検索
-========================================= */
-
-searchInput.addEventListener(
-  "input",
-  () => {
-
-    const keyword =
-      searchInput.value.trim();
-
-
-    if(!keyword){
-
-      results.innerHTML = `
-        <div class="empty">
-          地方または都道府県を選択してください
-        </div>
-      `;
-
-      return;
-
-    }
-
-
-    searchServices(keyword);
-
-  }
 );
 
+const data =
+await response.json();
 
-/* =========================================
-   HTMLエスケープ
-========================================= */
+let list =
+data.filter(item=>
 
-function escapeHtml(value){
+item.prefecture===selectedPrefecture
 
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+);
+
+if(selectedCategory!=="すべて"){
+
+list=list.filter(item=>
+
+(item.category||"")===selectedCategory
+
+);
+
+}
+
+if(keyword){
+
+list=list.filter(item=>{
+
+const text=
+`${item.name}
+${item.description}
+${item.prefecture}
+${item.category||""}`;
+
+return text
+.toLowerCase()
+.includes(keyword.toLowerCase());
+
+});
+
+}
+
+renderServices(list);
+
+}catch(e){
+
+results.innerHTML=`
+<div class="empty">
+データ取得エラー
+</div>
+`;
+
+console.error(e);
+
+}
+
+}
+/* ========= カード表示 ========= */
+
+function renderServices(list){
+
+results.innerHTML="";
+
+if(list.length===0){
+
+results.innerHTML=`
+<div class="empty">
+「${selectedPrefecture}」の無料サービスはまだ登録されていません
+</div>
+`;
+
+return;
+
+}
+
+list.forEach(item=>{
+
+const card=
+document.createElement("div");
+
+card.className="service-card";
+
+const category=item.category || "無料";
+const address=item.address || "";
+const website=item.website || "";
+
+card.innerHTML=`
+
+<div class="tag-row">
+
+<div class="tag green">
+${category}
+</div>
+
+<div class="tag blue">
+${item.prefecture}
+</div>
+
+</div>
+
+<div class="service-title">
+🎁 ${item.name}
+</div>
+
+<div class="service-desc">
+${item.description}
+</div>
+
+${address ? `
+<div style="margin-top:10px;font-size:13px;color:#6B7280;">
+📍 ${address}
+</div>` : ""}
+
+${website ? `
+<div style="margin-top:12px;">
+<a href="${website}" target="_blank"
+style="
+display:inline-block;
+background:#16A34A;
+color:white;
+text-decoration:none;
+padding:10px 14px;
+border-radius:10px;
+font-size:13px;
+font-weight:700;">
+公式サイトを見る
+</a>
+</div>` : ""}
+
+`;
+
+results.appendChild(card);
+
+});
 
 }
 
 
-/* =========================================
-   初期表示
-========================================= */
+/* ========= 初期起動 ========= */
 
-showRegion("近畿");
+selectRegion("近畿");
 
 </script>
 
